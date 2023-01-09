@@ -1,8 +1,27 @@
 import pickle
 from collections import UserDict
+from abc import ABC, abstractmethod
+
+class FelixDict(ABC):
+    @abstractmethod
+    def saver(self):
+        ...
+
+    @abstractmethod
+    def loader(self):
+        ...
+
+class FelixRecord(ABC):
+    @abstractmethod
+    def change_field(self, field_name, old_value, new_value):
+        pass
+
+    @abstractmethod
+    def __str__(self):
+        pass
 
 
-class MainBook(UserDict):
+class MainBook(UserDict, FelixDict):
     """Parent class for notebook and contact book"""
 
     def saver(self, fh):

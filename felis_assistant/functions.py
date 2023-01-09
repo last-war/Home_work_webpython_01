@@ -223,19 +223,12 @@ def sorting_by_tags() -> str:
 @input_error
 def show_all() -> str:
     """Return all contact book"""
-
-    result = []
-    for name, data in CONTACTS.data.items():
-        numbers = ", ".join(phone.value for phone in data.phones)
-        bday = data.birthday.value.date().strftime(
-            '%d-%m-%Y') if data.birthday else None
-        email = data.email.value if data.email else None
-        address = data.address.value if data.address else None
-        result.append([name, numbers, bday, email, address])
-    if len(result) < 1:
+    if len(CONTACTS.values()) < 1:
         return f'Contact list is empty'
-    columns = ['Name', 'Phones', 'Birthday', 'E-mail', 'Address']
-    return tabulate(result, headers=columns, tablefmt='psql')
+
+    contacts = list(map(str, CONTACTS.values()))
+    res = "\n" + "\n\n".join(contacts) + "\n"
+    return res
 
 
 def show_all_note() -> str:
@@ -338,17 +331,16 @@ def hlp(*args) -> str:
 
 
 def parser(msg: str):
-    """ Parser and handler AIO """
+    """ Parser and handler AIO"""
     command = None
     params = []
 
     for key in operations:
         if msg.lower().startswith(key):
-            command = operations[key]
             msg = msg.lstrip(key)
             for item in filter(lambda x: x != '', msg.split(' ')):
                 params.append(item)
-            return command, params
+            command = operations[key]
     return command, params
 
 
@@ -362,31 +354,31 @@ def incorrect_input(msg):
 
 
 operations = {
-    'hello': hello,
-    'help': hlp,
-    'add_contact': add,
-    'change_phone': change,
-    'change_address': change_address,
-    'change_birthday': change_birthday,
-    'change_email': change_email,
-    'phone': phone_func,
-    'show_all': show_all,
-    'exit': goodbye,
-    'delete_phone': delete_phone,
-    'contact_delete': delete_user,
-    'search': search,
-    'sort': sorter,
-    'note_add': adding_note,
-    'note_delete': delete_note,
-    'note_edit': editing_note,
-    'note_show_all': show_all_note,
-    'tag_search': searching_by_tag,
-    'tag_sort': sorting_by_tags,
-    'birthday': list_record_to_x_day_bd,
-    'word_search': searching_by_word,
-    'holiday': today_holiday,
-    'weather': get_weather,
-}
+            'hello': hello,
+            'help': hlp,
+            'add_contact': add,
+            'change_phone': change,
+            'change_address': change_address,
+            'change_birthday': change_birthday,
+            'change_email': change_email,
+            'phone': phone_func,
+            'show_all': show_all,
+            'exit': goodbye,
+            'delete_phone': delete_phone,
+            'contact_delete': delete_user,
+            'search': search,
+            'sort': sorter,
+            'note_add': adding_note,
+            'note_delete': delete_note,
+            'note_edit': editing_note,
+            'note_show_all': show_all_note,
+            'tag_search': searching_by_tag,
+            'tag_sort': sorting_by_tags,
+            'birthday': list_record_to_x_day_bd,
+            'word_search': searching_by_word,
+            'holiday': today_holiday,
+            'weather': get_weather,
+        }
 
 
 def startup_loader():

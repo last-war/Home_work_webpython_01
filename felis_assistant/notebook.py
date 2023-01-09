@@ -1,8 +1,8 @@
 from datetime import datetime
-from .mainbook import MainBook
+from .mainbook import MainBook, FelixRecord
 
 
-class Note:
+class Note(FelixRecord):
     """Notes class
     title (str) - short name
     content (str) - full note
@@ -18,6 +18,10 @@ class Note:
         if len(content) < 20:
             self.title = content
         self.title = content[:20]
+
+    def change_field(self, field_name, old_value, new_value):
+        if field_name == 'content':
+            self.content = new_value
 
     def __str__(self) -> str:
         """Modification note output"""
@@ -40,8 +44,7 @@ class NoteBook(MainBook):
     def edit_note(self, title, new_content: str):
         """Editing note found by title"""
         note = self.data[title]
-        note.content = new_content
-        self.data[title] = note
+        note.change_field('content','',new_content)
 
     def delete_note(self, title: str):
         """Deleting note by title"""

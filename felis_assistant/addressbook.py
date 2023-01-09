@@ -1,7 +1,6 @@
 from datetime import datetime, date
 import re
-from .mainbook import MainBook
-
+from .mainbook import MainBook, FelixRecord
 
 class AddressBook(MainBook):
     """Class AddressBook - general class for contact book"""
@@ -135,8 +134,17 @@ class Birthday(Field):
         self._value = self.check_date(value)
 
 
-class Record:
+class Record(FelixRecord):
     """Logic for fields"""
+
+    def __str__(self):
+        numbers = ", ".join(phone.value for phone in self.phones)
+        bday = self.birthday.value.date().strftime(
+            '%d-%m-%Y') if self.birthday else None
+        email = self.email.value if self.email else None
+        address = self.address.value if self.address else None
+        return f'Name:{self.name.value} \nPhones:{numbers}\nBirthday:{bday}\nE-mail:{email}\nAddress:{address}'
+
 
     def __init__(self, name, phone=None, birthday=None, email=None, address=None):
         self.name = Name(name)
