@@ -1,6 +1,6 @@
 from datetime import datetime, date
 import re
-from .mainbook import MainBook, MainBookRecord
+from felis_assistant.mainbook import MainBook, MainBookRecord
 
 class AddressBook(MainBook):
     """Class AddressBook - general class for contact book"""
@@ -107,7 +107,7 @@ class Phone(Field):
             phone)
         if not parse:
             raise ValueError(
-                'Incorrect phone format, should be: \n + 380991112233 or 099-111-22-33 or 099-111-2233 or 0991112233 \n or (099)1112233 or (099)111-22-33 or (099)111-2233')
+                'Incorrect phone format, should be: \n + 380991112233 or 099-111-22-33 \n or (099)1112233 or (099)111-22-33 or (099)111-2233')
         return phone
 
     @Field.value.setter
