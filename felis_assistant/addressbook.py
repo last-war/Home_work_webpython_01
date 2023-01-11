@@ -1,6 +1,6 @@
 from datetime import datetime, date
 import re
-from .mainbook import MainBook, FelixRecord
+from .mainbook import MainBook, MainBookRecord
 
 class AddressBook(MainBook):
     """Class AddressBook - general class for contact book"""
@@ -134,7 +134,7 @@ class Birthday(Field):
         self._value = self.check_date(value)
 
 
-class Record(FelixRecord):
+class Record(MainBookRecord):
     """Logic for fields"""
 
     def __str__(self):
