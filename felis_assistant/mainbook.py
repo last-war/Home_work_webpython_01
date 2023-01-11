@@ -4,11 +4,11 @@ from abc import ABC, abstractmethod
 
 class AbcDict(ABC):
     @abstractmethod
-    def saver(self):
+    def save(self):
         ...
 
     @abstractmethod
-    def loader(self):
+    def load(self):
         ...
 
 class MainBookRecord(ABC):
@@ -24,12 +24,12 @@ class MainBookRecord(ABC):
 class MainBook(AbcDict, UserDict):
     """Parent class for notebook and contact book"""
 
-    def saver(self, fh):
+    def save(self, fh):
         """Saving data to file"""
         with open(fh, 'wb') as file:
             pickle.dump(self.data, file)
 
-    def loader(self, fh):
+    def load(self, fh):
         """Load data from file"""
         try:
             with open(fh, 'rb') as file:
