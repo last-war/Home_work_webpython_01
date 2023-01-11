@@ -57,13 +57,13 @@ def add(name=None, number=None, birthday=None, email=None, address=None) -> str:
         address = input('Input address: ')
         new_number = Record(name, number, birthday, email, address)
         CONTACTS.add_record(new_number)
-        CONTACTS.saver(FILENAME_CONTACTS)
+        CONTACTS.save(FILENAME_CONTACTS)
         return f'Contact add successfully'
     else:
         print(f'Contact {name} already exist. Adding new number')
         number = input('Input new phone number: ')
         CONTACTS[name].add_phone(number)
-        CONTACTS.saver(FILENAME_CONTACTS)
+        CONTACTS.save(FILENAME_CONTACTS)
         return f'New number added to {name}'
 
 
@@ -75,7 +75,7 @@ def adding_note() -> str:
     tags = tags.split(" ")
     note = Note(text, tags)
     NOTES.add_note(note)
-    NOTES.saver(FILENAME_NOTES)
+    NOTES.save(FILENAME_NOTES)
     if note.tags:
         return f'New note with tags added'
     return f'New note added'
@@ -88,7 +88,7 @@ def change_address(*args) -> str:
     name, old_value, new_value, *_ = args
     if name in CONTACTS:
         CONTACTS[name].change_field('address', old_value, new_value)
-        CONTACTS.saver(FILENAME_CONTACTS)
+        CONTACTS.save(FILENAME_CONTACTS)
     else:
         return f'No contact "{name}"'
     return f'Contact address change successfully'
@@ -382,5 +382,5 @@ operations = {
 
 
 def startup_loader():
-    CONTACTS.loader(FILENAME_CONTACTS)
-    NOTES.loader(FILENAME_NOTES)
+    CONTACTS.load(FILENAME_CONTACTS)
+    NOTES.load(FILENAME_NOTES)
