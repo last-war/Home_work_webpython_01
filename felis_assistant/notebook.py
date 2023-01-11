@@ -1,8 +1,8 @@
 from datetime import datetime
-from .mainbook import MainBook, FelixRecord
+from .mainbook import MainBook, MainBookRecord
 
 
-class Note(FelixRecord):
+class Note(MainBookRecord):
     """Notes class
     title (str) - short name
     content (str) - full note
